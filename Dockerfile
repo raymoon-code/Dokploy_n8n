@@ -15,17 +15,7 @@ COPY --from=ffmpeg-source /usr/bin/ffprobe /usr/bin/ffprobe
 COPY --from=ffmpeg-source /usr/lib/ /usr/lib/
 COPY --from=ffmpeg-source /lib/ /lib/
 
-# Chỉ thêm các package canvas cần thiết
-RUN apk add --no-cache \
-  cairo-dev \
-  pango-dev \
-  jpeg-dev \
-  giflib-dev \
-  pixman-dev \
-  build-base \
-  python3 \
-  pkgconf
 
-RUN npm install -g canvas
+
 
 USER node
