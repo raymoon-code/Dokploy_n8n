@@ -15,4 +15,20 @@ COPY --from=ffmpeg-source /usr/bin/ffprobe /usr/bin/ffprobe
 COPY --from=ffmpeg-source /usr/lib/ /usr/lib/
 COPY --from=ffmpeg-source /lib/ /lib/
 
+# Them canvas dependencies
+RUN apk add --no-cache \
+  cairo-dev \
+  pango-dev \
+  jpeg-dev \
+  giflib-dev \
+  pixman-dev \
+  pangomm-dev \
+  libjpeg-turbo-dev \
+  build-base \
+  python3 \
+  pkgconfig
+
+# Cai canvas
+RUN npm install canvas
+
 USER node
