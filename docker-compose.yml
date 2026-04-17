@@ -1,0 +1,18 @@
+version: "3.8"
+services:
+  n8n:
+    build:
+      context: .
+      dockerfile: Dockerfile   # <-- trỏ đến Dockerfile tùy chỉnh
+    restart: always
+    environment:
+      - N8N_HOST=${N8N_HOST}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://${N8N_HOST}/
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
