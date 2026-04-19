@@ -14,5 +14,17 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
 
+  whisper:
+    image: onerahmet/openai-whisper-asr-webservice:latest
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+    volumes:
+      - whisper_cache:/root/.cache
+    environment:
+      - ASR_MODEL=base
+      - ASR_ENGINE=openai_whisper
+
 volumes:
   n8n_data:
+  whisper_cache:
