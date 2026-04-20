@@ -1,20 +1,30 @@
 version: "3.8"
+
 services:
   n8n:
     build:
       context: .
-      dockerfile: Dockerfile   # <-- trỏ đến Dockerfile tùy chỉnh
+      dockerfile: Dockerfile
     restart: always
+
     environment:
       - N8N_HOST=${N8N_HOST}
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - NODE_ENV=production
       - WEBHOOK_URL=https://${N8N_HOST}/
+
+      - NODE_OPTIONS=--max-old-space-size=1200
+      - EXECUTIONS_DATA_SAVE_ON_SUCCESS=none
+      - EXECUTIONS_DATA_SAVE_ON_ERROR=none
+      - EXECUTIONS_DATA_SAVE_MANUAL_EXECUTIONS=false
+      - N8N_CONCURRENCY_PRODUCTION_LIMIT=1
+
     volumes:
       - n8n_data:/home/node/.n8n
 
+    mem_limit: 1600m
+    mem_reservation: 512m
 
 volumes:
   n8n_data:
-  whisper_cache:
