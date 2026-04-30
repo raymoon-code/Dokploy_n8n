@@ -6,7 +6,9 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-
+  # Add this networks block to the service
+    networks:
+      - dokploy-network
     environment:
       - N8N_HOST=${N8N_HOST}
       - N8N_PORT=5678
@@ -22,9 +24,15 @@ services:
 
     volumes:
       - n8n_data:/home/node/.n8n
-
+  
+    
     mem_limit: 1600m
     mem_reservation: 512m
 
 volumes:
   n8n_data:
+
+# Define the external network at the bottom
+  networks:
+    dokploy-network:
+      external: true
